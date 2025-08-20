@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import NavBar from './components/NavBar/NavBar';
@@ -15,16 +15,20 @@ import * as hootService from './services/hootService';
 
 const App = () => {
   const { user } = useContext(UserContext);
+  const [hoots, setHoots] = useState([]);
 
   // Debug logging
   console.log('App component rendered, user:', user);
 
   useEffect(() => {
     const fetchAllHoots = async () => {
-      const hootsData = await hootService.index();
-  
-      // console log to verify
-      console.log('hootsData:', hootsData);
+      try {
+        const hootsData = await hootService.index();
+        console.log('hootsData:', hootsData);
+        setHoots(hootsData);
+      } catch (error) {
+        console.error('Error fetching hoots:', error);
+      }
     };
     if (user) fetchAllHoots();
   }, [user]);
@@ -37,7 +41,7 @@ const App = () => {
         {user ? (
           <>
             {/* Protected routes (available only to signed-in users) */}
-            <Route path='/hoots' element={<HootList />} />
+            <Route path='/hoots' element={<HootList hoots={hoots} />} />
           </>
         ) : (
           <>
