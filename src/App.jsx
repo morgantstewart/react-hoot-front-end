@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import NavBar from './components/NavBar/NavBar';
@@ -6,16 +6,28 @@ import SignUpForm from './components/SignUpForm/SignUpForm';
 import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
+import HootList from './components/HootList/HootList';
 
 import { UserContext } from './contexts/UserContext';
+import * as hootService from './services/hootService';
 
-import HootList from './components/HootList/HootList';
 
 
 const App = () => {
   const { user } = useContext(UserContext);
+
+  // Debug logging
+  console.log('App component rendered, user:', user);
+
+  useEffect(() => {
+    const fetchAllHoots = async () => {
+      const hootsData = await hootService.index();
   
-  // src/App.jsx
+      // console log to verify
+      console.log('hootsData:', hootsData);
+    };
+    if (user) fetchAllHoots();
+  }, [user]);
 
   return (
     <>
