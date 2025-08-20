@@ -1,5 +1,5 @@
 
-const HootList = (props) => {
+const HootList = () => {
   return <main>Hoot List</main>;
 };
 
