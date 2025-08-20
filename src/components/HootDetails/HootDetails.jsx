@@ -34,17 +34,36 @@ const HootDetails = () => {
 
   return (
     <main>
-      <h1>Hoot Details</h1>
-      <article>
+      <section>
         <header>
-          <h2>{hoot.title}</h2>
+          <p>{hoot.category?.toUpperCase()}</p>
+          <h1>{hoot.title}</h1>
           <p>
             {`${hoot.author?.username} posted on
             ${new Date(hoot.createdAt).toLocaleDateString()}`}
           </p>
         </header>
         <p>{hoot.text}</p>
-      </article>
+      </section>
+
+      {/* All updates are in the comments section! */}
+      <section>
+        <h2>Comments</h2>
+
+        {!hoot.comments?.length && <p>There are no comments.</p>}
+
+        {hoot.comments?.map((comment) => (
+          <article key={comment._id}>
+            <header>
+              <p>
+                {`${comment.author?.username} posted on
+                ${new Date(comment.createdAt).toLocaleDateString()}`}
+              </p>
+            </header>
+            <p>{comment.text}</p>
+          </article>
+        ))}
+      </section>
     </main>
   );
 };

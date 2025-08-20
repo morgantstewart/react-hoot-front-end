@@ -7,11 +7,10 @@ import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
 import HootList from './components/HootList/HootList';
+import HootDetails from './components/HootDetails/HootDetails';
 
 import { UserContext } from './contexts/UserContext';
 import * as hootService from './services/hootService';
-
-import HootDetails from './components/HootDetails/HootDetails';
 
 
 
