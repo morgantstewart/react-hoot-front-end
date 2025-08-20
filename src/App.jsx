@@ -9,19 +9,34 @@ import Dashboard from './components/Dashboard/Dashboard';
 
 import { UserContext } from './contexts/UserContext';
 
+import HootList from './components/HootList/HootList';
+
+
 const App = () => {
   const { user } = useContext(UserContext);
   
+  // src/App.jsx
+
   return (
     <>
       <NavBar/>
       <Routes>
         <Route path='/' element={user ? <Dashboard /> : <Landing />} />
-        <Route path='/sign-up' element={<SignUpForm />} />
-        <Route path='/sign-in' element={<SignInForm />} />
+        {user ? (
+          <>
+            {/* Protected routes (available only to signed-in users) */}
+            <Route path='/hoots' element={<HootList />} />
+          </>
+        ) : (
+          <>
+            {/* Non-user routes (available only to guests) */}
+            <Route path='/sign-up' element={<SignUpForm />} />
+            <Route path='/sign-in' element={<SignInForm />} />
+          </>
+        )}
       </Routes>
     </>
   );
-};
+
 
 export default App;
